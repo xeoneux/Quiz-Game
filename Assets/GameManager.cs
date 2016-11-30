@@ -17,6 +17,14 @@ public class GameManager : MonoBehaviour
 	private Text factText;
 
 	[SerializeField]
+	private Text trueAnswerText;
+	[SerializeField]
+	private Text falseAnswerText;
+
+	[SerializeField]
+	private Animator animator;
+
+	[SerializeField]
 	private float timeBetweenQuestions = 1f;
 
 	void Start ()
@@ -35,6 +43,14 @@ public class GameManager : MonoBehaviour
 
 		factText.text = currentQuestion.fact;
 
+		if (currentQuestion.isTrue) {
+			trueAnswerText.text = "Correct!";
+			falseAnswerText.text = "Wrong!";
+		} else {
+			trueAnswerText.text = "Wrong!";
+			falseAnswerText.text = "Correct!";
+		}
+
 		unansweredQuestions.RemoveAt (randomQuestionIndex);
 	}
 
@@ -49,6 +65,8 @@ public class GameManager : MonoBehaviour
 
 	public void UserSelectTrue ()
 	{
+		animator.SetTrigger ("True");
+		
 		if (currentQuestion.isTrue) {
 			
 		} else {
@@ -60,6 +78,8 @@ public class GameManager : MonoBehaviour
 
 	public void UserSelectFalse ()
 	{
+		animator.SetTrigger ("False");
+		
 		if (!currentQuestion.isTrue) {
 
 		} else {
